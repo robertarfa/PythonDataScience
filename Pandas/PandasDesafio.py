@@ -34,4 +34,12 @@ aprovados_new = pd.read_csv("alunos_aprovados.csv")
 #substituir as notas 7 por 8
 aprovados = aprovados.replace(7.0, 8.0)
 
-aprovados
+dados = dados.replace(7.0, 8.0)
+
+dados['pontos_extras'] = dados['Notas'] * 0.4
+
+dados['notas_finais'] = dados["Notas"] + dados['pontos_extras']
+
+dados['Aprovado_final'] = dados['notas_finais'].apply(lambda x: True if x >= 6 else False)
+
+dados.query('Aprovado != Aprovado_final')
